@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/ciscoacdave/Demo/static/css/main.142cfd85.css",
+    "main.js": "/ciscoacdave/Demo/static/js/main.a84079d0.js",
+    "index.html": "/ciscoacdave/Demo/index.html",
+    "main.142cfd85.css.map": "/ciscoacdave/Demo/static/css/main.142cfd85.css.map",
+    "main.a84079d0.js.map": "/ciscoacdave/Demo/static/js/main.a84079d0.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.142cfd85.css",
+    "static/js/main.a84079d0.js"
+  ]
+}
