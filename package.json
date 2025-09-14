@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
     "proxy": "https://hooks.us.webexconnect.io/",
-  "homepage": "https://ciscoacdave.github.io/travel-form-app",
+
 "predeploy": "npm run build",
 "deploy": "gh-pages -d build",
   "dependencies": {
