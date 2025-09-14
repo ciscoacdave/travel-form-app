@@ -5,47 +5,98 @@ function App() {
     finalDestination: '',
     lastName: '',
     dateOfBirth: '',
-    contactMethod: ''
+    contactMethod: '',
+    phoneNumber: ''
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    
+    // Handle phone number formatting
+    if (name === 'phoneNumber') {
+      // Remove all non-digits
+      const digitsOnly = value.replace(/\D/g, '');
+      
+      // Limit to 11 digits and ensure it starts with 1
+      let formattedValue = digitsOnly;
+      if (formattedValue.length > 11) {
+        formattedValue = formattedValue.slice(0, 11);
+      }
+      
+      setFormData(prev => ({
+        ...prev,
+        [name]: formattedValue
+      }));
+      return;
+    }
+    
+    setFormData(prev => {
+      const newData = {
+        ...prev,
+        [name]: value
+      };
+      
+      // Clear phone number if contact method is changed to video or Apple Messages
+      if (name === 'contactMethod' && value !== 'phone' && value !== 'text') {
+        newData.phoneNumber = '';
+      }
+      
+      return newData;
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // Validate that all fields are filled
+    // Validate that all required fields are filled
     if (!formData.finalDestination || !formData.lastName || !formData.dateOfBirth || !formData.contactMethod) {
       alert('Please fill in all fields and select a contact method.');
       return;
     }
 
+    // Validate phone number if phone or text is selected
+    if ((formData.contactMethod === 'phone' || formData.contactMethod === 'text') && !formData.phoneNumber) {
+      alert('Please enter a phone number for phone or text contact.');
+      return;
+    }
+
+    // Validate phone number format (11 digits starting with 1)
+    if ((formData.contactMethod === 'phone' || formData.contactMethod === 'text') && formData.phoneNumber) {
+      if (formData.phoneNumber.length !== 11 || !formData.phoneNumber.startsWith('1')) {
+        alert('Please enter a valid US phone number in format: 18472695644 (11 digits starting with 1)');
+        return;
+      }
+    }
+
     // Replace this URL with your actual webhook URL
-    const webhookUrl = 'https://webhook.site/3b67a70c-1d49-4400-b565-856ec09a07b7';
+    const webhookUrl = '/events/1V5WO20HJQ';
     
     setIsSubmitting(true);
     
     try {
+      // Prepare data for webhook
+      const webhookData = {
+        finalDestination: formData.finalDestination,
+        lastName: formData.lastName,
+        dateOfBirth: formData.dateOfBirth,
+        contactMethod: formData.contactMethod,
+        timestamp: new Date().toISOString()
+      };
+
+      // Only include phone number if phone or text is selected
+      if (formData.contactMethod === 'phone' || formData.contactMethod === 'text') {
+        webhookData.phoneNumber = formData.phoneNumber;
+      }
+
       // Send data to webhook
       const response = await fetch(webhookUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          finalDestination: formData.finalDestination,
-          lastName: formData.lastName,
-          dateOfBirth: formData.dateOfBirth,
-          contactMethod: formData.contactMethod,
-          timestamp: new Date().toISOString()
-        })
+        body: JSON.stringify(webhookData)
       });
 
       if (response.ok) {
@@ -55,7 +106,8 @@ function App() {
           finalDestination: '',
           lastName: '',
           dateOfBirth: '',
-          contactMethod: ''
+          contactMethod: '',
+          phoneNumber: ''
         });
       } else {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -69,20 +121,19 @@ function App() {
   };
 
   return (
-    <div className="container mt-4">
+<div className="container mt-12">
       <div className="row justify-content-center">
-        <div className="col-md-6">
-          {/* Image placeholder */}
-          <div className="text-center mb-4">
-            <div 
-              className="bg-light border rounded d-flex align-items-center justify-content-center"
-              style={{ height: '200px', width: '100%' }}
-            >
-              <span className="text-muted">
-                <div style={{ fontSize: '3rem' }}>🖼️</div>
-                Replace with your image
-              </span>
-            </div>
+        {/* Change this line to control form width */}
+        <div className="col-12 col-md-8 col-lg-6 col-xl-12">
+          
+          {/* Image */}
+          <div className="text-center mb-8">
+            <img 
+            src="https://storage.googleapis.com/gcp-wxcctoolkit-nprd-41927.appspot.com/assets/DwOVM0HYZPOjxemCLo1foEsxRmm1/AOD.jpg"
+            alt="Header" 
+            className="img-fluid rounded"
+            style={{ width: '100%', height: 'auto', objectFit: 'cover' }}/>
+          
           </div>
 
           {/* Form */}
@@ -198,6 +249,30 @@ function App() {
                 </div>
               </div>
             </div>
+
+            {/* Phone Number - Only show if Phone or Text is selected */}
+            {(formData.contactMethod === 'phone' || formData.contactMethod === 'text') && (
+              <div className="mb-4">
+                <label htmlFor="phoneNumber" className="form-label">
+                  Phone Number
+                </label>
+                <input
+                  type="tel"
+                  className="form-control"
+                  id="phoneNumber"
+                  name="phoneNumber"
+                  value={formData.phoneNumber}
+                  onChange={handleInputChange}
+                  placeholder="18472695644"
+                  pattern="^1[0-9]{10}$"
+                  maxLength="11"
+                  inputMode="numeric"
+                />
+                <div className="form-text">
+                  Enter 11 digits starting with 1 (e.g., 18472695644)
+                </div>
+              </div>
+            )}
 
             {/* Submit Button */}
             <div className="d-grid">
