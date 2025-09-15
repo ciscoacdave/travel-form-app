@@ -287,7 +287,7 @@ function App() {
                   name="phoneNumber"
                   value={formData.phoneNumber}
                   onChange={handleInputChange}
-                  placeholder="18472695644"
+                  placeholder="1800United1"
                   pattern="^1[0-9]{10}$"
                   maxLength="11"
                   inputMode="numeric"
