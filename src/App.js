@@ -74,7 +74,7 @@ function App() {
     if (formData.contactMethod === 'appleBusiness') {
       try {
         // Open Apple Messages app
-        const messagesUrl = 'https://bcrw.apple.com/messages/api/messageprofiles/redirecthelper?service=iMessage&recipient=urn:biz:6f6ab203-6ead-450a-bcae-24662cb6aae0&body=Hello';
+        const messagesUrl = 'https://bcrw.apple.com/urn:biz:8a4b1370-1933-4b12-b9a9-a94fc58281ca?service=iMessage&body=Hello';
         window.open(messagesUrl, '_blank');
         
         alert('Opening Apple Messages for Business...');
