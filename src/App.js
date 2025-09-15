@@ -52,20 +52,20 @@ function App() {
     
     // Validate that all required fields are filled
     if (!formData.finalDestination || !formData.lastName || !formData.dateOfBirth || !formData.contactMethod) {
-      alert('Please fill in all fields and select a contact method.');
+      alert('Agent on Demand says: Please fill in all fields and select a contact method.');
       return;
     }
 
     // Validate phone number if phone or text is selected
     if ((formData.contactMethod === 'phone' || formData.contactMethod === 'text') && !formData.phoneNumber) {
-      alert('Please enter a phone number for phone or text contact.');
+      alert('Agent on Demand says: Please enter a phone number for phone or text contact.');
       return;
     }
 
     // Validate phone number format (11 digits starting with 1)
     if ((formData.contactMethod === 'phone' || formData.contactMethod === 'text') && formData.phoneNumber) {
       if (formData.phoneNumber.length !== 11 || !formData.phoneNumber.startsWith('1')) {
-        alert('Please enter a valid US phone number in format: 18472695644 (11 digits starting with 1)');
+        alert('Agent on Demand says: Please enter a valid US phone number in format: 18472695644 (11 digits starting with 1)');
         return;
       }
     }
@@ -74,10 +74,10 @@ function App() {
     if (formData.contactMethod === 'appleBusiness') {
       try {
         // Open Apple Messages app
-        const messagesUrl = 'https://bcrw.apple.com/urn:biz:8a4b1370-1933-4b12-b9a9-a94fc58281ca?service=iMessage&body=Hello';
+        const messagesUrl = 'https://bcrw.apple.com/messages/api/messageprofiles/redirecthelper?service=iMessage&recipient=urn:biz:6f6ab203-6ead-450a-bcae-24662cb6aae0&body=Hello';
         window.open(messagesUrl, '_blank');
         
-        alert('Opening Apple Messages for Business...');
+        alert('Agent on Demand says: Opening Apple Messages for Business...');
         
         // Reset form after opening messages
         setFormData({
@@ -90,7 +90,7 @@ function App() {
         return;
       } catch (error) {
         console.error('Error opening Apple Messages:', error);
-        alert('There was an error opening Apple Messages. Please try again.');
+        alert('Agent on Demand says: There was an error opening Apple Messages. Please try again.');
         return;
       }
     }
@@ -125,7 +125,7 @@ function App() {
       });
 
       if (response.ok) {
-        alert('Form submitted successfully!');
+        alert('Agent on Demand says: Form submitted successfully!');
         // Reset form after successful submission
         setFormData({
           finalDestination: '',
@@ -139,7 +139,7 @@ function App() {
       }
     } catch (error) {
       console.error('Error submitting form:', error);
-      alert('There was an error submitting the form. Please try again.');
+      alert('Agent on Demand says: There was an error submitting the form. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -287,7 +287,7 @@ function App() {
                   name="phoneNumber"
                   value={formData.phoneNumber}
                   onChange={handleInputChange}
-                  placeholder="1800United1"
+                  placeholder="18472695644"
                   pattern="^1[0-9]{10}$"
                   maxLength="11"
                   inputMode="numeric"
