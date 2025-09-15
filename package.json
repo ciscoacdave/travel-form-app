@@ -2,7 +2,7 @@
   "name": "travel-form-app",
   "version": "0.1.0",
   "private": true,
-    "proxy": "https://hooks.us.webexconnect.io/",
+   "_proxy": "https://hooks.us.webexconnect.io/",
 
 "predeploy": "npm run build",
 "deploy": "gh-pages -d build",

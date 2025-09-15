@@ -70,9 +70,34 @@ function App() {
       }
     }
 
+    // Handle Apple Messages for Business
+    if (formData.contactMethod === 'appleBusiness') {
+      try {
+        // Open Apple Messages app
+        const messagesUrl = 'https://bcrw.apple.com/messages/api/messageprofiles/redirecthelper?service=iMessage&recipient=urn:biz:6f6ab203-6ead-450a-bcae-24662cb6aae0&body=Hello';
+        window.open(messagesUrl, '_blank');
+        
+        alert('Opening Apple Messages for Business...');
+        
+        // Reset form after opening messages
+        setFormData({
+          finalDestination: '',
+          lastName: '',
+          dateOfBirth: '',
+          contactMethod: '',
+          phoneNumber: ''
+        });
+        return;
+      } catch (error) {
+        console.error('Error opening Apple Messages:', error);
+        alert('There was an error opening Apple Messages. Please try again.');
+        return;
+      }
+    }
+
     // Replace this URL with your actual webhook URL
-    const webhookUrl = '/events/1V5WO20HJQ';
-    
+    //const webhookUrl = '/events/1V5WO20HJQ';
+    const webhookUrl = 'https://hooks.us.webexconnect.io/events/1V5WO20HJQ'
     setIsSubmitting(true);
     
     try {
@@ -121,7 +146,7 @@ function App() {
   };
 
   return (
-<div className="container mt-12">
+    <div className="container mt-12">
       <div className="row justify-content-center">
         {/* Change this line to control form width */}
         <div className="col-12 col-md-8 col-lg-6 col-xl-12">
@@ -133,7 +158,6 @@ function App() {
             alt="Header" 
             className="img-fluid rounded"
             style={{ width: '100%', height: 'auto', objectFit: 'cover' }}/>
-          
           </div>
 
           {/* Form */}
