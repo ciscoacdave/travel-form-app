@@ -73,8 +73,9 @@ function App() {
     // Handle Apple Messages for Business
     if (formData.contactMethod === 'appleBusiness') {
       try {
-        // Open Apple Messages app
-        const messagesUrl = 'https://bcrw.apple.com/messages/api/messageprofiles/redirecthelper?service=iMessage&recipient=urn:biz:6f6ab203-6ead-450a-bcae-24662cb6aae0&body=Hello';
+        // Open Apple Messages app https://bcrw.apple.com/urn:biz:8a4b1370-1933-4b12-b9a9-a94fc58281ca?service=iMessage&body=Hello
+        const messagesUrl = 'https://bcrw.apple.com/urn:biz:8a4b1370-1933-4b12-b9a9-a94fc58281ca?service=iMessage&body=Hello'
+        //'https://bcrw.apple.com/messages/api/messageprofiles/redirecthelper?service=iMessage&recipient=urn:biz:6f6ab203-6ead-450a-bcae-24662cb6aae0&body=Hello';
         window.open(messagesUrl, '_blank');
         
         alert('Agent on Demand says: Opening Apple Messages for Business...');
