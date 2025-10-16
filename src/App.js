@@ -76,10 +76,10 @@ const FormApplication = () => {
       try {
         // Determine Apple Messages URL based on help category
         const messagesUrlMapping = {
-          'changeFlight': 'https://bcrw.apple.com/messages/api/messageprofiles/redirecthelper?service=iMessage&recipient=urn:biz:6f6ab203-6ead-450a-bcae-24662cb6aae0&body=aod',
-          'changeSeat': 'https://bcrw.apple.com/messages/api/messageprofiles/redirecthelper?service=iMessage&recipient=urn:biz:6f6ab203-6ead-450a-bcae-24662cb6aae0&body=aod',
-          'baggage': 'https://bcrw.apple.com/messages/api/messageprofiles/redirecthelper?service=iMessage&recipient=urn:biz:6f6ab203-6ead-450a-bcae-24662cb6aae0&body=baggage',
-          'somethingElse': 'https://bcrw.apple.com/messages/api/messageprofiles/redirecthelper?service=iMessage&recipient=urn:biz:6f6ab203-6ead-450a-bcae-24662cb6aae0&body=aod'
+          'changeFlight': 'https://bcrw.apple.com/messages/api/messageprofiles/redirecthelper?service=iMessage&recipient=urn:biz:8a4b1370-1933-4b12-b9a9-a94fc58281ca0&body=aod',
+          'changeSeat': 'https://bcrw.apple.com/messages/api/messageprofiles/redirecthelper?service=iMessage&recipient=urn:biz:8a4b1370-1933-4b12-b9a9-a94fc58281ca0&body=aod',
+          'baggage': 'https://bcrw.apple.com/messages/api/messageprofiles/redirecthelper?service=iMessage&recipient=urn:biz:8a4b1370-1933-4b12-b9a9-a94fc58281ca0&body=baggage',
+          'somethingElse': 'https://bcrw.apple.com/messages/api/messageprofiles/redirecthelper?service=iMessage&recipient=urn:biz:8a4b1370-1933-4b12-b9a9-a94fc58281ca0&body=aod'
         };
 
         const messagesUrl = messagesUrlMapping[formData.helpCategory];
