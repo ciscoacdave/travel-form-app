@@ -4,6 +4,7 @@ function App() {
   const [formData, setFormData] = useState({
     finalDestination: '',
     lastName: '',
+    helpCategory: '',
     dateOfBirth: '',
     contactMethod: '',
     phoneNumber: ''
@@ -51,7 +52,7 @@ function App() {
     e.preventDefault();
     
     // Validate that all required fields are filled
-    if (!formData.finalDestination || !formData.lastName || !formData.dateOfBirth || !formData.contactMethod) {
+    if (!formData.finalDestination || !formData.lastName || !formData.helpCategory || !formData.dateOfBirth || !formData.contactMethod) {
       alert('Agent on Demand says: Please fill in all fields and select a contact method.');
       return;
     }
@@ -73,9 +74,8 @@ function App() {
     // Handle Apple Messages for Business
     if (formData.contactMethod === 'appleBusiness') {
       try {
-        // Open Apple Messages app https://bcrw.apple.com/urn:biz:8a4b1370-1933-4b12-b9a9-a94fc58281ca?service=iMessage&body=Hello
-        const messagesUrl = 'https://bcrw.apple.com/urn:biz:8a4b1370-1933-4b12-b9a9-a94fc58281ca?service=iMessage&body=Hello'
-        //'https://bcrw.apple.com/messages/api/messageprofiles/redirecthelper?service=iMessage&recipient=urn:biz:6f6ab203-6ead-450a-bcae-24662cb6aae0&body=Hello';
+        // Open Apple Messages app
+        const messagesUrl = 'https://bcrw.apple.com/messages/api/messageprofiles/redirecthelper?service=iMessage&recipient=urn:biz:6f6ab203-6ead-450a-bcae-24662cb6aae0&body=Hello';
         window.open(messagesUrl, '_blank');
         
         alert('Agent on Demand says: Opening Apple Messages for Business...');
@@ -84,6 +84,7 @@ function App() {
         setFormData({
           finalDestination: '',
           lastName: '',
+          helpCategory: '',
           dateOfBirth: '',
           contactMethod: '',
           phoneNumber: ''
@@ -106,6 +107,7 @@ function App() {
       const webhookData = {
         finalDestination: formData.finalDestination,
         lastName: formData.lastName,
+        helpCategory: formData.helpCategory,
         dateOfBirth: formData.dateOfBirth,
         contactMethod: formData.contactMethod,
         timestamp: new Date().toISOString()
@@ -131,6 +133,7 @@ function App() {
         setFormData({
           finalDestination: '',
           lastName: '',
+          helpCategory: '',
           dateOfBirth: '',
           contactMethod: '',
           phoneNumber: ''
@@ -195,6 +198,26 @@ function App() {
                 onChange={handleInputChange}
                 placeholder="Enter your last name"
               />
+            </div>
+
+            {/* Help Category Dropdown */}
+            <div className="mb-3">
+              <label htmlFor="helpCategory" className="form-label">
+                What do you need help with?
+              </label>
+              <select
+                className="form-select"
+                id="helpCategory"
+                name="helpCategory"
+                value={formData.helpCategory}
+                onChange={handleInputChange}
+              >
+                <option value="">Select an option...</option>
+                <option value="Baggage">Baggage Issues</option>
+                <option value="changeSeat">Change my seat</option>
+                <option value="verifyDocuments">Verify travel documents</option>
+                <option value="somethingElse">Something Else</option>
+              </select>
             </div>
 
             {/* Date of Birth */}
